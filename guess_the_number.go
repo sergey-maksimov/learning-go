@@ -2,8 +2,13 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"log"
 	"math/rand"
+	"os"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -17,4 +22,25 @@ func main() {
 	fmt.Println("Сможешь угадать его?")
 	// Showing the generated number
 	fmt.Println(target)
+	// Сreating a bufio. NewReader for reading keyboard input
+	reader := bufio.NewReader(os.Stdin)
+	// Request a number from the user
+	fmt.Print("Введите число:")
+	// Read the data entered by the user before pressing enter
+	input, err := reader.ReadString('\n')
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Deleting a newline character
+	input = strings.TrimSpace(input)
+	// Convert to an integer
+	guess, err := strconv.Atoi(input)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if guess < target {
+		fmt.Println("Ваше предположение низкое")
+	} else if guess > target {
+		fmt.Println("Ваше предположение высокое")
+	}
 }
